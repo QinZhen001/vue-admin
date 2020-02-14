@@ -3,7 +3,7 @@ const jwt = require('jsonwebtoken');
 const { TOKEN_ENCODE_STR, WHILE_URLS } = require("../config/index")
 
 function test() {
-    let rrr = createToken({ aaa: "aaa" })
+    let rrr = createToken({ username: "aaa" })
     console.log("rrr", rrr)
     let res = jwt.verify(rrr, TOKEN_ENCODE_STR);
     console.log("res", res)
@@ -46,7 +46,7 @@ async function tokenMiddleware(ctx, next) {
         }
         const { username = "" } = jwt.verify(token, TOKEN_ENCODE_STR);
 
-        console.log("username",username)
+        // console.log("username",username)
 
         if (!checkToken({
             username,

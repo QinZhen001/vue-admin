@@ -4,13 +4,17 @@
   "private": true,
   "scripts": {
     "node": "nodemon server/app.js",
-    "node:inspect":"nodemon --inspect server/app.js",
+    "node:inspect": "nodemon --inspect server/app.js",
     "serve": "vue-cli-service serve",
     "build": "vue-cli-service build",
-    "lint": "vue-cli-service lint"
+    "lint": "vue-cli-service lint",
+    "inspect": "vue-cli-service inspect"
   },
   "dependencies": {
+    "axios": "^0.19.2",
     "core-js": "^3.6.4",
+    "element-ui": "^2.13.0",
+    "good-storage": "^1.1.0",
     "jsonwebtoken": "^8.5.1",
     "koa": "^2.11.0",
     "koa-bodyparser": "^4.2.1",
@@ -22,16 +26,21 @@
     "koa-session": "^5.13.1",
     "koa-static": "^5.0.0",
     "koa2-cors": "^2.0.6",
+    "node-sass": "^4.13.1",
     "vue": "^2.6.11",
+    "vue-router": "^3.1.5",
+    "vuex": "^3.1.2",
     "xss": "^1.0.6"
   },
   "devDependencies": {
+    "@babel/plugin-proposal-optional-chaining": "^7.8.3",
     "@vue/cli-plugin-babel": "~4.2.0",
     "@vue/cli-plugin-eslint": "~4.2.0",
     "@vue/cli-service": "~4.2.0",
     "babel-eslint": "^10.0.3",
     "eslint": "^6.7.2",
     "eslint-plugin-vue": "^6.1.2",
+    "sass-loader": "^8.0.2",
     "vue-template-compiler": "^2.6.11"
   },
   "eslintConfig": {
