@@ -4,6 +4,7 @@
   "private": true,
   "scripts": {
     "node": "nodemon server/app.js",
+    "node:inspect":"nodemon --inspect server/app.js",
     "serve": "vue-cli-service serve",
     "build": "vue-cli-service build",
     "lint": "vue-cli-service lint"
@@ -21,7 +22,8 @@
     "koa-session": "^5.13.1",
     "koa-static": "^5.0.0",
     "koa2-cors": "^2.0.6",
-    "vue": "^2.6.11"
+    "vue": "^2.6.11",
+    "xss": "^1.0.6"
   },
   "devDependencies": {
     "@vue/cli-plugin-babel": "~4.2.0",
