@@ -36,8 +36,6 @@ export default {
   mounted() {},
   methods: {
     async onLogin() {
-        console.log("this.$route",this.$route)
-        debugger
       // 省略掉前端的验证
       let res = await this.$http.userLogin({
         username: this.form.username,
@@ -49,13 +47,24 @@ export default {
           username,
           token
         });
-
         // 登录成功后 重定向
-        const redirectUrl = this.$route.params.redirect;
-        console.log("redirectUrl", redirectUrl);
-        debugger;
+        const loading = this.$loading({
+          lock: true,
+          text: "登陆成功 自动跳转",
+          spinner: "el-icon-loading",
+          background: "rgba(0, 0, 0, 0.7)"
+        });
+        setTimeout(() => {
+          loading.close();
+          this.redirect()
+        }, 2000);
+      }
+    },
+    redirect() {
+      const { redirect = "" } = this.$route.query;
+      if (redirect) {
         this.$router.replace({
-          path: redirectUrl
+          path: redirect
         });
       }
     }

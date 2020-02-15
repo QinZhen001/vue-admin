@@ -1,24 +1,57 @@
 # vue-admin
 
-## Project setup
-```
-npm install
-```
+vue管理系统模板
 
-### Compiles and hot-reloads for development
-```
-npm run serve
-```
+## 实现
 
-### Compiles and minifies for production
-```
-npm run build
-```
 
-### Lints and fixes files
-```
-npm run lint
-```
 
-### Customize configuration
-See [Configuration Reference](https://cli.vuejs.org/config/).
+### 后端
+
+
+
+* koa全家桶
+* token验证
+
+
+
+###  前端
+
+
+
+
+
+* 路由重定向
+* 路由钩子检验权限
+* vuex链接localstorage存取token等数据
+* 组件懒加载
+* vuex管理路由表
+* router.addRoutes动态添加路由
+
+
+
+
+
+### 打包
+
+
+
+* 打包分析
+* `DLLPlugin` 和 `DLLReferencePlugin` 拆分 bundles，同时还大大提升了构建的速度
+
+* vue-cli3的webpack配置
+* inspect 分析 webpack 配置文件
+* AddAssetHtmlPlugin引入dll
+
+
+
+
+
+
+
+## todo
+
+* [ ] 数据库
+
+  
+

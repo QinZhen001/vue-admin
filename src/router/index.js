@@ -5,9 +5,10 @@ import store from "../store"
 Vue.use(Router)
 
 
-const Home = () => import('../view/Home.vue')
-const Login = () => import("../view/Login.vue")
-const Register = () => import("../view/Register.vue")
+const Home = () => import(/* webpackChunkName: "Home" */'../view/Home.vue')
+const Login = () => import(/* webpackChunkName: "Login" */"../view/Login.vue")
+const Register = () => import(/* webpackChunkName: "Register" */"../view/Register.vue")
+const Test = () => import(/* webpackChunkName: "Test" */"../view/Test.vue")
 
 
 const router = new Router({
@@ -33,14 +34,24 @@ const router = new Router({
             path: "/register",
             name: "register",
             component: Register
-        }
+        },
+        {
+            path:"/test",
+            name:"test",
+            component:Test,
+            meta: {
+                requiresAuth: true
+            },
+        },
+        { path: '*', redirect: '/404', hidden: true }
+
     ]
 })
 
 
 // 全局路由钩子
 router.beforeEach((to, form, next) => {
-    console.log("token111",store.state.user.token)
+    console.log("token111", store.state.user.token)
     //获取store里面的token
     let token = store?.state?.user?.token
     // 判断去的路由需不需要token
