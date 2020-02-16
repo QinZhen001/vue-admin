@@ -8,6 +8,9 @@ import router from "./router"
 import store from "./store"
 import axios from "./axios"
 
+// permission control
+ import './router/permission' 
+
 // Vue.config.productionTip = false
 Vue.prototype.$http = axios 
 Vue.use(ElementUI);

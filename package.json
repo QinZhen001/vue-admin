@@ -5,6 +5,7 @@
   "scripts": {
     "node": "nodemon server/app.js",
     "node:inspect": "nodemon --inspect server/app.js",
+    "dev": "npm run serve",
     "serve": "vue-cli-service serve",
     "build": "vue-cli-service build",
     "lint": "vue-cli-service lint",
@@ -28,6 +29,7 @@
     "koa-session": "^5.13.1",
     "koa-static": "^5.0.0",
     "koa2-cors": "^2.0.6",
+    "mongoose": "^5.9.1",
     "node-sass": "^4.13.1",
     "vue": "^2.6.11",
     "vue-router": "^3.1.5",

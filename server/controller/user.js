@@ -3,6 +3,8 @@ const xss = require('xss')
 
 const { PWD_ENCODE_STR } = require("../config/index")
 const { createToken } = require("../utils/token")
+const { User } = require("../db")
+
 
 async function register(ctx, next) {
     let { username = "", password = "", re_password = "" } = ctx.request.body
@@ -30,8 +32,8 @@ async function register(ctx, next) {
         }
         return
     }
-    let res = await _findUserByName(username)
-    if (res) {
+    let res = await User.find({ user_name: username })
+    if (res.length) {
         ctx.body = {
             code: 409,
             msg: '注册失败，登录账号重复了，换一个吧！'
@@ -46,53 +48,65 @@ async function register(ctx, next) {
     // console.log("cryptoPassword", cryptoPassword)
     // 防止xss攻击
     username = xss(username)
-    // const token = createToken({ username })
+    const token = createToken({ username })
     // 存入数据库
-    await _saveUser({ username, password })
-
-    ctx.body = {
-        code: 200,
-        msg: "注册成功!",
-        data: {
-            username, password
+    let user = new User({ user_name: username, user_pwd: password, token });
+    res = await user.save();
+    // console.log("user.save",res)
+    if (res._id) {
+        ctx.body = {
+            code: 200,
+            msg: "注册成功!",
+            data: {
+                username, token
+            }
+        }
+    } else {
+        ctx.body = {
+            code: 500,
+            msg: "注册失败，数据库服务器异常!"
         }
     }
-
     await next()
 }
 
 async function login(ctx, next) {
     let { username = "", password = "" } = ctx.request.body
-    if(!username || !password){
+    if (!username || !password) {
         ctx.body = {
             code: 401,
             msg: "登录失败，请输入登录账号或密码!"
         }
         return
     }
-    password =  crypto.createHmac('sha256', PWD_ENCODE_STR)
-    .update(password)
-    .digest("hex")
+    password = crypto.createHmac('sha256', PWD_ENCODE_STR)
+        .update(password)
+        .digest("hex")
     // 在数据库中查找用户
-    let res = await _findUser({username,password})
-    if(!res){
+    let res = await User.findOne({ user_name:username, user_pwd:password })
+   // 更新这个用户的token
+    res.token = createToken({username})
+    res.save()
+    // console.log("User.findOne",res)
+ 
+    if (!res) {
         ctx.body = {
             code: 401,
             msg: '登录失败，用户名或者密码错误!'
-          }
-          return;
+        }
+        return;
     }
     // 生成token
-    const token = createToken({username})
+    const token = createToken({ username })
 
     ctx.body = {
         code: 200,
         msg: "登录成功!",
         data: {
-          username,  
-          token
+            username,
+            token
         }
-      }
+    }
 
     await next()
 }
@@ -101,8 +115,8 @@ async function login(ctx, next) {
 
 //    ----------- 内部模块 ------------
 
-async function _findUser({username,password}){
-    return true 
+async function _findUser({ username, password }) {
+    return true
 }
 
 /**

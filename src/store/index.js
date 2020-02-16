@@ -1,44 +1,34 @@
 import Vue from "vue"
 import Vuex from "vuex"
-import storage from 'good-storage'
 
-
-import userInfo from "./module/userInfo"
 
 Vue.use(Vuex)
 
-const state = {
-    user: {
-        username: storage.get("username"),
-        token: storage.get("token")
-    }
+// https://webpack.js.org/guides/dependency-management/#requirecontext
+const modulesFiles = require.context("./modules", true, /\.js$/)
+console.log('modulesFiles: ', modulesFiles);
+
+// debugger
+
+const modules = modulesFiles.keys().reduce((modules, modulePath) => {
+
+    const moduleName = modulePath.replace(/^\.\/(.*)\.\w+$/, '$1')
+    const value = modulesFiles(modulePath)
+    console.log("moduleName",moduleName,value)
+    modules[moduleName] = value.default
+    return modules
+}, {})
+
+
+const getters = {
+    roles: state => state.user.roles,
+    permissionRoutes: state => state.permission.routes,
 }
 
-const mutations = {
-    saveUser(state, data) {
-        state.user.token = data.token
-        state.user.username = data.username
 
-        // 数据存入localStorage
-        storage.set("username", data.username)
-        storage.set("token", data.token)
-
-    
-    },
-    removeUser(state) {
-        state.user.username = ""
-        state.user.token = ""
-
-        storage.remove("username")
-        storage.remove("token")
-    }
-}
 
 
 export default new Vuex.Store({
-    modules: {
-        userInfo
-    },
-    state,
-    mutations
+    modules,
+    getters
 })

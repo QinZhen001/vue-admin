@@ -9,8 +9,12 @@ export default {
     // 用户注册
     userRegister(data) {
         return instance.post("/api/user/register", data)
-    }
+    },
 
+    // 获取用户信息
+    getInfo(token) {
+        return instance.post("api/user/info", { token })
+    }
 }
 
 
