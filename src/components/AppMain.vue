@@ -16,15 +16,16 @@
 export default {
   components: {},
   data() {
-    return {
-      key() {
-        return this.$route.path;
-      }
-    };
+    return {};
   },
   created() {},
   mounted() {},
-  methods: {}
+  methods: {},
+  computed: {
+    key() {
+      return this.$route.path;
+    }
+  }
 };
 </script>
 <style lang='scss' scoped>

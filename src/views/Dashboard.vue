@@ -5,6 +5,7 @@
 
 <script>
 export default {
+  name: "dashboard",
   components: {},
   data() {
     return {};

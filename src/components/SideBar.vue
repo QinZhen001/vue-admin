@@ -1,25 +1,13 @@
 <!-- sidebar -->
 <template>
   <div class>
-        <el-scrollbar wrap-class="scrollbar-wrapper">
-      <el-menu
-        :default-active="activeMenu"
-        :collapse="isCollapse"
-        :background-color="variables.menuBg"
-        :text-color="variables.menuText"
-        :unique-opened="false"
-        :active-text-color="variables.menuActiveText"
-        :collapse-transition="false"
-        mode="vertical"
-      >
-        <sidebar-item v-for="route in permissionRroutes" :key="route.path" :item="route" :base-path="route.path" />
-      </el-menu>
-    </el-scrollbar>
+    <div>显示当前用户的路由表</div>
+    <div v-for="route in permissionRoutes" :key="route.path">{{route.path}}</div>
   </div>
 </template>
 
 <script>
-import { mapGetters } from 'vuex'
+import { mapGetters } from "vuex";
 
 export default {
   components: {},
@@ -27,12 +15,13 @@ export default {
     return {};
   },
   created() {},
-  mounted() {},
+  mounted() {
+    console.log(this.permissionRoutes);
+    debugger;
+  },
   methods: {},
-  computed:{
-       ...mapGetters([
-      'permissionRroutes',
-    ]),
+  computed: {
+    ...mapGetters(["permissionRoutes"])
   }
 };
 </script>

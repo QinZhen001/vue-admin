@@ -1,5 +1,5 @@
 const router = require("koa-router")()
-const { register, login } = require('../controller/user')
+const { register, login,test } = require('../controller/user')
 
 const { createToken } = require("../utils/token")
 
@@ -13,6 +13,7 @@ router
     })
     .post("/user/register", register)
     .post("/user/login", login)
+    .post("/user/test",test)
 
 
 

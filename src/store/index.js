@@ -14,7 +14,7 @@ const modules = modulesFiles.keys().reduce((modules, modulePath) => {
 
     const moduleName = modulePath.replace(/^\.\/(.*)\.\w+$/, '$1')
     const value = modulesFiles(modulePath)
-    console.log("moduleName",moduleName,value)
+    console.log("moduleName", moduleName, value)
     modules[moduleName] = value.default
     return modules
 }, {})
@@ -22,7 +22,9 @@ const modules = modulesFiles.keys().reduce((modules, modulePath) => {
 
 const getters = {
     roles: state => state.user.roles,
-    permissionRoutes: state => state.permission.routes,
+    permissionRoutes: state => {
+        return state.permission.routes
+    },
 }
 
 

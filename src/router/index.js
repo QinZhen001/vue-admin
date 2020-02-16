@@ -48,14 +48,6 @@ export const constantRoutes =
             component: Register
         },
         {
-            path: "/test",
-            name: "test",
-            component: Test,
-            meta: {
-                requiresAuth: true
-            },
-        },
-        {
             path: '/404',
             component: () => import('@/views/404.vue'),
             hidden: true
@@ -104,6 +96,22 @@ export const asyncRoutes = [
                 }
             }
         ]
+    },
+    {
+        path: "/test",
+        name: "test",
+        component: Test,
+        meta: {
+            roles: ['admin'] 
+        }
+    },
+    {
+        path: "/ppp",
+        component: () => import("@/views/Permission.vue"),
+        meta: {
+            title: 'Page Permission',
+            roles: ['test'] 
+        }
     },
     // 404 page must be placed at the end !!!
     { path: '*', redirect: '/404', hidden: true }

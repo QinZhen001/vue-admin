@@ -1,13 +1,11 @@
 import storage from 'good-storage'
 
-import { getInfo } from "../../axios/index"
+// import { getInfo } from "../axios/index"
 
 const state = {
-    user: {
-        username: storage.get("username"),
-        token: storage.get("token"),
-        roles: []
-    }
+    username: storage.get("username"),
+    token: storage.get("token"),
+    roles: []
 }
 
 
@@ -15,8 +13,8 @@ const getters = {}
 
 const mutations = {
     saveUser(state, data) {
-        state.user.token = data.token
-        state.user.username = data.username
+        state.token = data.token
+        state.username = data.username
 
         // 数据存入localStorage
         storage.set("username", data.username)
@@ -25,20 +23,27 @@ const mutations = {
 
     },
     removeUser(state) {
-        state.user.username = ""
-        state.user.token = ""
+        state.username = ""
+        state.token = ""
 
         storage.remove("username")
         storage.remove("token")
+    },
+    SET_ROLES: (state, roles) => {
+        state.roles = roles
     }
 }
 
 const actions = {
     getInfo({ commit, state }) {
         return new Promise((resolve, reject) => {
-            getInfo(state.token).then(res => {
-                commit()
-            })
+            // todo 发起网络请求查询用户信息
+            // 这里省略
+            let data = {
+                roles: ["admin"]
+            }
+            commit("SET_ROLES", data.roles)
+            resolve(data)
         })
     }
 }

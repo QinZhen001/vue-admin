@@ -83,34 +83,41 @@ async function login(ctx, next) {
         .update(password)
         .digest("hex")
     // 在数据库中查找用户
-    let res = await User.findOne({ user_name:username, user_pwd:password })
-   // 更新这个用户的token
-    res.token = createToken({username})
-    res.save()
-    // console.log("User.findOne",res)
- 
+    let res = await User.findOne({ user_name: username, user_pwd: password })
+
+
     if (!res) {
         ctx.body = {
             code: 401,
             msg: '登录失败，用户名或者密码错误!'
         }
         return;
-    }
-    // 生成token
-    const token = createToken({ username })
-
-    ctx.body = {
-        code: 200,
-        msg: "登录成功!",
-        data: {
-            username,
-            token
+    } else {
+        // 更新这个用户的token
+        const token = createToken({ username })
+        res.token = token
+        res.save()
+        // console.log("User.findOne",res)
+        ctx.body = {
+            code: 200,
+            msg: "登录成功!",
+            data: {
+                username,
+                token
+            }
         }
+
     }
+
+
 
     await next()
 }
 
+
+async function test(ctx, next) {
+    await next()
+}
 
 
 //    ----------- 内部模块 ------------
@@ -140,5 +147,6 @@ async function _saveUser({ username, password, token }) {
 
 module.exports = {
     register,
-    login
+    login,
+    test
 }

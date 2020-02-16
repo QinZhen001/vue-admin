@@ -2,12 +2,11 @@
 <template>
   <div class>
     layout
-    <sidebar class="sidebar-container" />
     <div>
       <sidebar></sidebar>
     </div>
     <div>
-      <app-main />
+      <app-main/>
     </div>
   </div>
 </template>
