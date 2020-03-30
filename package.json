@@ -11,7 +11,8 @@
     "lint": "vue-cli-service lint",
     "dll": "webpack -p --progress --config ./webpack.dll.conf.js",
     "inspect:dev": "vue-cli-service inspect --mode development >> webpack.config.development.js",
-    "inspect:prod": "vue-cli-service inspect --mode production >> webpack.config.production.js"
+    "inspect:prod": "vue-cli-service inspect --mode production >> webpack.config.production.js",
+    "test": "jest"
   },
   "dependencies": {
     "axios": "^0.19.2",
@@ -47,6 +48,7 @@
     "compression-webpack-plugin": "^3.1.0",
     "eslint": "^6.7.2",
     "eslint-plugin-vue": "^6.1.2",
+    "jest": "^25.1.0",
     "sass-loader": "^8.0.2",
     "vue-template-compiler": "^2.6.11",
     "webpack-bundle-analyzer": "^3.6.0",
