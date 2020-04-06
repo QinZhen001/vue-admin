@@ -14,20 +14,35 @@
         <el-button>取消</el-button>
       </el-form-item>
     </el-form>
-    <div class="" @click="goRegister">
-        去注册
-    </div>
+    <div class @click="goRegister">去注册</div>
+    <children>
+      <template v-slot:default="slotProps">
+        <!-- 通过v-slot访问子组件的data -->
+        <div>父组件访问子组件的data1</div>
+        <div>{{slotProps.user.firstName}} + {{slotProps.user.lastName}}</div>
+      </template>
+    </children>
+    <div>----------------------------------------</div>
+    <children v-slot:default="slotProps">
+        <!-- 通过v-slot访问子组件的data -->
+        <div>父组件访问子组件的data2</div>
+        <div>{{slotProps.user.firstName}} + {{slotProps.user.lastName}}</div>
+    </children>
   </div>
 </template>
 
 <script>
+import Children from "./Children";
+
 export default {
-  components: {},
+  components: {
+    Children
+  },
   data() {
     return {
       form: {
         username: "",
-        password: "",
+        password: ""
       }
     };
   },
@@ -40,9 +55,9 @@ export default {
         username: this.form.username,
         password: this.form.password
       });
-      console.log("res",res)
+      console.log("res", res);
       if (res.data.code == 200) {
-         this.$message.success(res.data.msg)
+        this.$message.success(res.data.msg);
         let { username = "", token = "" } = res.data.data;
         this.$store.commit("user/saveUser", {
           username,
@@ -57,10 +72,10 @@ export default {
         });
         setTimeout(() => {
           loading.close();
-          this.redirect()
+          this.redirect();
         }, 2000);
-      }else{
-        this.$message.error(res.data.msg)
+      } else {
+        this.$message.error(res.data.msg);
       }
     },
     redirect() {
@@ -72,10 +87,10 @@ export default {
         });
       }
     },
-    goRegister(){
+    goRegister() {
       this.$router.push({
-        path:"/register"
-      })
+        path: "/register"
+      });
     }
   }
 };
