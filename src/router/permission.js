@@ -5,7 +5,9 @@ import { Message } from 'element-ui'
 
 const whiteList = [
   "/login",
-  "/register"
+  "/register",
+  // TODO:开发期间设置白名单
+  "/dashboard"
 ]
 
 
@@ -31,7 +33,6 @@ router.beforeEach(async (to, from, next) => {
           // set the replace: true, so the navigation will not leave a history record
           next({ ...to, replace: true })
         } catch (error) {
-          debugger
           await store.commit('user/removeUser')
           Message.error(error || 'Has Error')
           // 重新登录

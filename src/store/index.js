@@ -1,6 +1,6 @@
 import Vue from "vue"
 import Vuex from "vuex"
-
+import getters from "./getters"
 
 Vue.use(Vuex)
 
@@ -11,7 +11,6 @@ console.log('modulesFiles: ', modulesFiles);
 // debugger
 
 const modules = modulesFiles.keys().reduce((modules, modulePath) => {
-
     const moduleName = modulePath.replace(/^\.\/(.*)\.\w+$/, '$1')
     const value = modulesFiles(modulePath)
     console.log("moduleName", moduleName, value)
@@ -20,12 +19,6 @@ const modules = modulesFiles.keys().reduce((modules, modulePath) => {
 }, {})
 
 
-const getters = {
-    roles: state => state.user.roles,
-    permissionRoutes: state => {
-        return state.permission.routes
-    },
-}
 
 
 

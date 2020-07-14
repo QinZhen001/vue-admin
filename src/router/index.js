@@ -5,11 +5,12 @@ import Router from "vue-router"
 Vue.use(Router)
 
 
-const Home = () => import(/* webpackChunkName: "Home" */'../views/Home.vue')
-const Login = () => import(/* webpackChunkName: "Login" */"../views/Login.vue")
-const Register = () => import(/* webpackChunkName: "Register" */"../views/Register.vue")
-const Test = () => import(/* webpackChunkName: "Test" */"../views/Test.vue")
-const Layout = () => import(/* webpackChunkName: "Layout" */"../views/Layout.vue")
+const Home = () => import('../views/Home.vue')
+const Login = () => import("../views/Login.vue")
+const Register = () => import("../views/Register.vue")
+const Test = () => import("../views/Test.vue")
+const Layout = () => import("../layout/index.vue")
+// const Dashboard = () => import("/src/views/dashboard/index.vue")
 
 /**
  * constantRoutes
@@ -17,7 +18,20 @@ const Layout = () => import(/* webpackChunkName: "Layout" */"../views/Layout.vue
  * all roles can be accessed
  */
 export const constantRoutes =
-    [
+    [   
+        {
+            path: "/",
+            redirect: "/dashboard",
+            component: Layout,
+            children: [
+                {
+                    path: "dashboard",
+                    name: 'Dashboard',
+                    component: () => import('@/views/dashboard/index'),
+                    meta: { title: 'Dashboard', icon: 'dashboard' }
+                }
+            ]
+        },
         {
             path: "/redirect",
             component: Layout,
@@ -56,17 +70,6 @@ export const constantRoutes =
             path: '/401',
             component: () => import('@/views/401.vue'),
             hidden: true
-        },
-        {
-            path: "/",
-            redirect: "/dashboard",
-            component: Layout,
-            children: [
-                {
-                    path: "dashboard",
-                    component: () => import("@/views/Dashboard.vue")
-                }
-            ]
         }
     ]
 

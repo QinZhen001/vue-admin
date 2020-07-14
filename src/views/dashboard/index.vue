@@ -1,11 +1,10 @@
-<!-- dashboard -->
 <template>
   <div class>dashboard</div>
 </template>
 
 <script>
 export default {
-  name: "dashboard",
+  name: 'Dashboard',
   components: {},
   data() {
     return {};
@@ -15,6 +14,7 @@ export default {
   methods: {}
 };
 </script>
+
+
 <style lang='scss' scoped>
-//@import url(); 引入公共css类
 </style>
