@@ -5,7 +5,8 @@ import storage from 'good-storage'
 const state = {
     username: storage.get("username"),
     token: storage.get("token"),
-    roles: []
+    roles: [],
+    avatar:""
 }
 
 

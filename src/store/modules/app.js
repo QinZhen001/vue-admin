@@ -2,7 +2,9 @@ import storage from "good-storage";
 
 const state = {
   sidebar: {
-    opened: storage.get("sidebarStatus"),
+    // opened 这里搞成默认值
+    // opened: storage.get("sidebarStatus"),
+    opened: true,
     withoutAnimation: false,
   },
   device: "desktop",
@@ -43,4 +45,3 @@ export default {
   mutations,
   actions,
 };
-
