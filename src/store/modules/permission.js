@@ -1,6 +1,5 @@
 import { asyncRoutes, constantRoutes } from '@/router'
 
-
 /**
  * Use meta.role to determine if the current user has permission
  * @param roles
@@ -14,8 +13,14 @@ function hasPermission(roles, route) {
   }
 }
 
-function filterAsyncRoutes(routes, roles) {
+/**
+ * Filter asynchronous routing tables by recursion
+ * @param routes asyncRoutes
+ * @param roles
+ */
+export function filterAsyncRoutes(routes, roles) {
   const res = []
+
   routes.forEach(route => {
     const tmp = { ...route }
     if (hasPermission(roles, tmp)) {
@@ -26,17 +31,13 @@ function filterAsyncRoutes(routes, roles) {
     }
   })
 
-  return res 
+  return res
 }
-
-
-// ---------------------------------
 
 const state = {
   routes: [],
   addRoutes: []
 }
-
 
 const mutations = {
   SET_ROUTES: (state, routes) => {
@@ -48,13 +49,17 @@ const mutations = {
 const actions = {
   generateRoutes({ commit }, roles) {
     return new Promise(resolve => {
-      let accessedRoutes = filterAsyncRoutes(asyncRoutes, roles)
+      let accessedRoutes
+      if (roles.includes('admin')) {
+        accessedRoutes = asyncRoutes || []
+      } else {
+        accessedRoutes = filterAsyncRoutes(asyncRoutes, roles)
+      }
       commit('SET_ROUTES', accessedRoutes)
       resolve(accessedRoutes)
     })
   }
 }
-
 
 export default {
   namespaced: true,
