@@ -48,7 +48,6 @@ export default {
   bind(el, binding, vnode) {
     nodeList.push(el);
     const id = seed++;
-    debugger
     el[ctx] = {
       id,
       documentHandler: createDocumentHandler(el, binding, vnode),

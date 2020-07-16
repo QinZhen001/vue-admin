@@ -42,7 +42,6 @@ export default {
       );
       const first = matched[0];
       if (!this.isDashboard(first)) {
-        debugger
         matched = [{ path: "/dashboard", meta: { title: "Dashboard" } }].concat(matched)
       }
 

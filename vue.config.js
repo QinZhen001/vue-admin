@@ -1,7 +1,7 @@
-const webpack = require('webpack')
-const BundleAnalyzerPlugin = require('webpack-bundle-analyzer').BundleAnalyzerPlugin
-const CompressionPlugin = require('compression-webpack-plugin');
-const AddAssetHtmlPlugin = require('add-asset-html-webpack-plugin')
+// const webpack = require('webpack')
+// const BundleAnalyzerPlugin = require('webpack-bundle-analyzer').BundleAnalyzerPlugin
+// const CompressionPlugin = require('compression-webpack-plugin');
+// const AddAssetHtmlPlugin = require('add-asset-html-webpack-plugin')
 
 const path = require("path")
 

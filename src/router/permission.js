@@ -7,7 +7,7 @@ const whiteList = [
   "/login",
   "/register",
   // TODO:开发期间设置白名单
-  "/dashboard"
+  // "/dashboard"
 ]
 
 

@@ -1,7 +1,12 @@
 <!-- login -->
 <template>
   <div class="login-page">
-    <div>login</div>
+    <div class="center">login</div>
+    <div class="tip">
+      <p>用户名：admin</p>
+      <p>密码：admin</p>
+      <p>跳过验证登录成功</p>
+    </div>
     <el-form ref="form" :model="form" label-width="80px">
       <el-form-item label="用户名">
         <el-input v-model="form.username"></el-input>
@@ -14,9 +19,7 @@
         <el-button>取消</el-button>
       </el-form-item>
     </el-form>
-    <div class="" @click="goRegister">
-        去注册
-    </div>
+    <div class="center" @click="goRegister">去注册</div>
   </div>
 </template>
 
@@ -27,7 +30,7 @@ export default {
     return {
       form: {
         username: "",
-        password: "",
+        password: ""
       }
     };
   },
@@ -35,20 +38,37 @@ export default {
   mounted() {},
   methods: {
     async onLogin() {
+      if(
+        this.form.username == "admin" &&
+        this.form.password == "admin"
+      ){
+          this.$store.commit("user/saveUser", {
+          username:"admin",
+          token:"admin"
+        });
+        return this.loginSuccess()
+      }
+
       // 省略掉前端的验证
       let res = await this.$http.userLogin({
         username: this.form.username,
         password: this.form.password
       });
-      console.log("res",res)
+      console.log("res", res);
       if (res.data.code == 200) {
-         this.$message.success(res.data.msg)
+        this.$message.success(res.data.msg);
         let { username = "", token = "" } = res.data.data;
         this.$store.commit("user/saveUser", {
           username,
           token
         });
-        // 登录成功后 重定向
+        this.loginSuccess()
+      } else {
+        this.$message.error(res.data.msg);
+      }
+    },
+    loginSuccess(){
+   // 登录成功后 重定向
         const loading = this.$loading({
           lock: true,
           text: "登陆成功 自动跳转",
@@ -57,11 +77,8 @@ export default {
         });
         setTimeout(() => {
           loading.close();
-          this.redirect()
+          this.redirect();
         }, 2000);
-      }else{
-        this.$message.error(res.data.msg)
-      }
     },
     redirect() {
       const { redirect = "" } = this.$route.query;
@@ -72,14 +89,27 @@ export default {
         });
       }
     },
-    goRegister(){
+    goRegister() {
       this.$router.push({
-        path:"/register"
-      })
+        path: "/register"
+      });
     }
   }
 };
 </script>
 <style lang='scss' scoped>
-//@import url(); 引入公共css类
+.center {
+  height: 50px;
+  line-height: 50px;
+  text-align: center;
+  font-size: 22px;
+  font-weight: bold;
+}
+
+.tip {
+  margin-bottom: 20px;
+  padding: 5px;
+  width:300px ;
+  border: 1px solid red;
+}
 </style>

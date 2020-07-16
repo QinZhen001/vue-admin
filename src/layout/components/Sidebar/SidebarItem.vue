@@ -1,22 +1,17 @@
 <!--  -->
 <template>
   <div v-if="!item.hidden">
+    <div>13132</div>
     <template
-      v-if="hasOneShowingChild(item.children,item) && (!onlyOneChild.children||onlyOneChild.noShowingChildren) && !item.alwaysShow"
+      v-if="hasOneShowingChild(item.children,item)"
     >
-      <app-link v-if="onlyOneChild.meta" :to="resolvePath(onlyOneChild.path)">
-        <el-menu-item
-          :index="resolvePath(onlyOneChild.path)"
-          :class="{'submenu-title-noDropdown':!isNest}"
-        >
-          <item
-            :icon="onlyOneChild.meta.icon||(item.meta&&item.meta.icon)"
-            :title="onlyOneChild.meta.title"
-          />
+      <router-link class="item" :to="calcTo(onlyOneChild)">
+        <el-menu-item :index=" onlyOneChild.path" :class="{'submenu-title-noDropdown':!isNest}" >
+          <span>111</span>
         </el-menu-item>
-      </app-link>
+      </router-link>
     </template>
-    <el-submenu v-else ref="subMenu" :index="resolvePath(item.path)" popper-append-to-body>
+    <el-submenu v-else ref="subMenu" :index="item.path" popper-append-to-body>
       <template slot="title">
         <item v-if="item.meta" :icon="item.meta && item.meta.icon" :title="item.meta.title" />
       </template>
@@ -25,7 +20,6 @@
         :key="child.path"
         :is-nest="true"
         :item="child"
-        :base-path="resolvePath(child.path)"
         class="nest-menu"
       />
     </el-submenu>
@@ -33,14 +27,10 @@
 </template>
 
 <script>
-import path from "path";
-import { isExternal } from "@/utils/validate";
-import Item from "./Item";
-import AppLink from "./Link";
 
 export default {
   name: "SidebarItem",
-  components: { Item, AppLink },
+  components: {},
   props: {
     item: {
       type: Object,
@@ -61,16 +51,26 @@ export default {
   },
   mounted() {},
   methods: {
+    calcTo(route){
+      debugger
+      if(route.name){
+        debugger
+        return "" + route.name
+      }
+      return ""
+    },
     hasOneShowingChild(children = [], parent) {
+      console.log(123,children)
+      debugger
       const showingChildren = children.filter(item => {
         if (item.hidden) {
           return false;
-        } else {
-          this.onlyOneChild = item;
         }
+        return true;
       });
 
       if (showingChildren.length == 1) {
+        this.onlyOneChild = showingChildren[0];
         return true;
       }
 
@@ -82,20 +82,15 @@ export default {
         };
         return true;
       }
-
       return false;
     },
-    resolvePath(routePath) {
-      if (isExternal(routePath)) {
-        return routePath;
-      }
-      if (isExternal(this.basePath)) {
-        return this.basePath;
-      }
-      return path.resolve(this.basePath, routePath);
-    }
   }
 };
 </script>
 <style lang='scss' scoped>
+  .item{
+    display: inline-block;
+    width: 100%;
+    height: 50px;
+  }
 </style>

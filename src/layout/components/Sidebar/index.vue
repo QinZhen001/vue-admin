@@ -2,7 +2,6 @@
 <template>
   <div :class="{'has-logo':showLogo}">
     <logo v-if="showLogo" :collapse="isCollapse" />
-    <el-scrollbar wrap-class="scrollbar-wrapper">
       <el-menu
         :default-active="activeMenu"
         :collapse="isCollapse"
@@ -13,22 +12,23 @@
         :collapse-transition="false"
         mode="vertical"
       >
-        <sidebar-item v-for="route in routes" :key="route.path" :item="route" :base-path="route.path" ></sidebar-item>
+        <sidebar-item
+          v-for="route in routes"
+          :key="route.path"
+          :item="route"
+        ></sidebar-item>
       </el-menu>
-    </el-scrollbar>
   </div>
 </template>
 
 <script>
 import { mapGetters } from "vuex";
-import Logo from "./Logo";
 import SidebarItem from "./SidebarItem";
 import variables from "@/styles/variables.scss";
 
 export default {
   components: {
     SidebarItem,
-    Logo
   },
   props: {},
   data() {
@@ -42,7 +42,6 @@ export default {
       if (meta.activeMenu) {
         return meta.activeMenu;
       }
-      // debugger
       return path;
     },
     showLogo() {
@@ -55,7 +54,14 @@ export default {
       return !this.sidebar.opened;
     },
     routes() {
-      return this.$router.options.routes;
+      let arr = [] 
+      this.$router.options.routes.forEach(item => {
+          if(item.meta && item.meta.title){
+            arr.push(item)
+          }
+      });
+      console.log("arr",arr.length)
+      return arr
     }
   },
   mounted() {},
