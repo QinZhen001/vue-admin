@@ -2,22 +2,19 @@
 <template>
   <div :class="{'has-logo':showLogo}">
     <logo v-if="showLogo" :collapse="isCollapse" />
-      <el-menu
-        :default-active="activeMenu"
-        :collapse="isCollapse"
-        :background-color="variables.menuBg"
-        :text-color="variables.menuText"
-        :unique-opened="false"
-        :active-text-color="variables.menuActiveText"
-        :collapse-transition="false"
-        mode="vertical"
-      >
-        <sidebar-item
-          v-for="route in routes"
-          :key="route.path"
-          :item="route"
-        ></sidebar-item>
-      </el-menu>
+    <el-menu
+      :default-active="activeMenu"
+      :collapse="isCollapse"
+      :background-color="variables.menuBg"
+      :text-color="variables.menuText"
+      :unique-opened="false"
+      :active-text-color="variables.menuActiveText"
+      :collapse-transition="false"
+      mode="vertical"
+      @select="handleSelect"
+    >
+      <sidebar-item v-for="route in routes" :key="route.path" :base-path="route.path" :item="route"></sidebar-item>
+    </el-menu>
   </div>
 </template>
 
@@ -28,7 +25,7 @@ import variables from "@/styles/variables.scss";
 
 export default {
   components: {
-    SidebarItem,
+    SidebarItem
   },
   props: {},
   data() {
@@ -54,19 +51,24 @@ export default {
       return !this.sidebar.opened;
     },
     routes() {
-      let arr = [] 
+      let arr = [];
       this.$router.options.routes.forEach(item => {
-          if(item.meta && item.meta.title){
-            arr.push(item)
-          }
+        if (item.meunRoute) {
+          arr.push(item);
+        }
       });
-      console.log("arr",arr.length)
-      return arr
+      return arr;
     }
   },
   mounted() {},
-  methods: {}
-};
+  methods:{
+   handleSelect(key, keyPath) {
+        console.log(1111,key, keyPath);
+      }
+  }
+}
 </script>
+
+
 <style lang='scss' scoped>
 </style>

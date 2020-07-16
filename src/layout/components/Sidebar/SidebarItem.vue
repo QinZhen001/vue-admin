@@ -3,17 +3,21 @@
   <div v-if="!item.hidden">
     <div>13132</div>
     <template
-      v-if="hasOneShowingChild(item.children,item)"
+      v-if="hasOneShowingChild(item.children,item) && 
+       onlyOneChild.name &&
+       onlyOneChild.meta.title"
     >
-      <router-link class="item" :to="calcTo(onlyOneChild)">
-        <el-menu-item :index=" onlyOneChild.path" :class="{'submenu-title-noDropdown':!isNest}" >
-          <span>111</span>
-        </el-menu-item>
-      </router-link>
+      <el-menu-item
+        :index="onlyOneChild.path"
+        :class="{'submenu-title-noDropdown':!isNest}"
+        @click="navTo(onlyOneChild)"
+      >
+        <span>{{onlyOneChild.meta.title}}</span>
+      </el-menu-item>
     </template>
     <el-submenu v-else ref="subMenu" :index="item.path" popper-append-to-body>
       <template slot="title">
-        <item v-if="item.meta" :icon="item.meta && item.meta.icon" :title="item.meta.title" />
+        <span>{{calcSubmenuTitle(item)}}</span>
       </template>
       <sidebar-item
         v-for="child in item.children"
@@ -27,7 +31,6 @@
 </template>
 
 <script>
-
 export default {
   name: "SidebarItem",
   components: {},
@@ -49,19 +52,25 @@ export default {
     this.onlyOneChild = null;
     return {};
   },
+  computed: {},
   mounted() {},
   methods: {
-    calcTo(route){
-      debugger
-      if(route.name){
-        debugger
-        return "" + route.name
+    calcSubmenuTitle(item) {
+      if (item.meta && item.meta.title) {
+        return item.meta.title;
       }
-      return ""
+      return item.name || "暂无名字";
+    },
+    navTo({ name, path }) {
+      if (!name) {
+        console.error(`${path}路由 缺少name属性`);
+      }
+      this.$router.push({
+        name
+      });
     },
     hasOneShowingChild(children = [], parent) {
-      console.log(123,children)
-      debugger
+      console.log(123, children);
       const showingChildren = children.filter(item => {
         if (item.hidden) {
           return false;
@@ -83,14 +92,14 @@ export default {
         return true;
       }
       return false;
-    },
+    }
   }
 };
 </script>
 <style lang='scss' scoped>
-  .item{
-    display: inline-block;
-    width: 100%;
-    height: 50px;
-  }
+.item {
+  display: inline-block;
+  width: 100%;
+  height: 50px;
+}
 </style>

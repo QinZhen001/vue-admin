@@ -10,12 +10,10 @@ const Test = () => import("../views/Test.vue");
 const Layout = () => import("../layout/index.vue");
 // const Dashboard = () => import("/src/views/dashboard/index.vue")
 
-/**
- * constantRoutes
- * a base page that does not have permission requirements
- * all roles can be accessed
- */
-export const constantRoutes = [
+
+// 和侧边栏有关的
+let boardRoutes = [
+  // 面板   
   {
     path: "/",
     redirect: "/dashboard",
@@ -23,9 +21,9 @@ export const constantRoutes = [
     children: [
       {
         path: "dashboard",
-        name: "Dashboard",
+        name: "dashboard",
         component: () => import("@/views/dashboard/index"),
-        meta: { title: "Dashboard", icon: "dashboard" },
+        meta: { title: "面板"},
       },
     ],
   },
@@ -33,18 +31,39 @@ export const constantRoutes = [
   {
     path: "/directive",
     component: Layout,
-    name: "directive",
-    meta: { title: "自定义命令" },
     redirect: "/directive/index",
+    meta: { title: "自定义命令"},
     children: [
       {
         path: "index",
-        name:"directive-asdasd",
+        name:"directive",
         component: () => import("@/views/directives/index"),
-        meta: { title: "自定义命令" },
+        meta: { title: "自定义命令1" },
+      },
+      {
+        path: "index2",
+        name:"directive2",
+        component: () => import("@/views/directives/index"),
+        meta: { title: "自定义命令2" },
       },
     ],
   },
+]
+
+
+boardRoutes  = boardRoutes.map(item => ({
+    ...item,
+    meunRoute:true 
+}))
+
+
+/**
+ * constantRoutes
+ * a base page that does not have permission requirements
+ * all roles can be accessed
+ */
+export const constantRoutes = [
+    ...boardRoutes,
 //   {
 //     path: "/redirect",
 //     children: [
