@@ -79,21 +79,21 @@ module.exports = {
         test: /\.js$|\.html$|\.css/, // 匹配文件名
         threshold: 10240, // 文件压缩阈值，对超过10k的进行压缩
         deleteOriginalAssets: false // 是否删除源文件
-      }),
-      new HtmlCriticalWebpackPlugin({
-        base: path.resolve(__dirname, 'dist'),
-        src: 'index.html',
-        dest: 'index.html',
-        inline: true,
-        minify: true,
-        extract: true,
-        width: 375,
-        height: 667,
-        penthouse: {
-          blockJSRequests: false
-        }
-      }),
-      new BundleAnalyzerPlugin()
+      })
+      // new HtmlCriticalWebpackPlugin({
+      //   base: path.resolve(__dirname, 'dist'),
+      //   src: 'index.html',
+      //   dest: 'index.html',
+      //   inline: true,
+      //   minify: true,
+      //   extract: true,
+      //   width: 375,
+      //   height: 667,
+      //   penthouse: {
+      //     blockJSRequests: false
+      //   }
+      // }),
+      // new BundleAnalyzerPlugin()
     ]
   },
   chainWebpack(config) {
