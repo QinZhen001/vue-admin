@@ -31,23 +31,38 @@ let boardRoutes = [
   {
     path: "/directive",
     component: Layout,
-    redirect: "/directive/index",
+    redirect: "/directive/clickoutside",
     meta: { title: "自定义命令"},
     children: [
       {
-        path: "index",
-        name:"directive",
-        component: () => import("@/views/directives/index"),
-        meta: { title: "自定义命令1" },
+        path: "clickoutside",
+        name:"clickoutside",
+        component: () => import("@/views/directives/clickoutside"),
+        meta: { title: "clickoutside" },
       },
       {
-        path: "index2",
-        name:"directive2",
-        component: () => import("@/views/directives/index"),
-        meta: { title: "自定义命令2" },
+        path: "repeatclick",
+        name:"repeatclick",
+        component: () => import("@/views/directives/repeatclick"),
+        meta: { title: "repeat-click" },
       },
     ],
   },
+  // 自定义组件
+  {
+    path:"/component",
+    component: Layout,
+    redirect: "/component/marquee",
+    meta: { title: "自定义组件"},
+    children:[
+      {
+        path:"marquee",
+        name:"marquee",
+        component: () => import("@/views/marquee/index"),
+        meta: { title: "跑马灯" },
+      },
+    ]
+  }
 ]
 
 

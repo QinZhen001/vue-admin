@@ -34,6 +34,7 @@
 export default {
   name: "SidebarItem",
   components: {},
+  inject:['reload'],
   props: {
     item: {
       type: Object,
@@ -64,6 +65,10 @@ export default {
     navTo({ name, path }) {
       if (!name) {
         console.error(`${path}路由 缺少name属性`);
+      }
+      if(this.$route.name == name){
+        // return this.$router.go(0)
+        return this.reload()
       }
       this.$router.push({
         name

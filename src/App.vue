@@ -1,19 +1,30 @@
 <template>
-  <div id="app" v-clickoutside="handleClose">
-    <router-view />
+  <div id="app">
+    <router-view v-if="isRouterAlive"/>
   </div>
 </template>
 
 <script>
-import Clickoutside from "./directives/clickoutside";
+
 
 export default {
   name: "App",
-  directives: { Clickoutside },
-  components: {},
+  provide(){
+    return {
+      reload:this.reload
+    }
+  },
+  data(){
+    return{
+      isRouterAlive: true
+    }
+  },
   methods:{
-    handleClose(){
-      console.log(1111)
+    reload (){
+      this.isRouterAlive = false
+      this.$nextTick(()=>{
+           this.isRouterAlive = true
+      })
     }
   }
 };

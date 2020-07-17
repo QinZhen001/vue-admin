@@ -1,0 +1,19 @@
+// 页面包裹内容
+.content-wrapper{
+  position: relative;
+  margin: 15px;
+  padding: 10px;
+  border-radius: 6px;
+  border: 1px solid #ededed;
+  min-height: calc(100vh - 50px - 15px - 15px);
+}
+
+// 页面通用header
+.content-header{
+  height: 50px;
+  width: 100%;
+  line-height: 50px;
+  text-align: center;
+  font-size: 26px;
+  font-weight: bold;
+}

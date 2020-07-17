@@ -1,5 +1,5 @@
 import Vue from 'vue';
-// import { on } from 'element-ui/src/utils/dom';
+ import { on } from '@/utils/dom';
 
 const nodeList = [];
 const ctx = '@@clickoutsideContext';
@@ -7,11 +7,11 @@ const ctx = '@@clickoutsideContext';
 let startClick;
 let seed = 0;
 
-// !Vue.prototype.$isServer && on(document, 'mousedown', e => (startClick = e));
+!Vue.prototype.$isServer && on(document, 'mousedown', e => (startClick = e));
 
-// !Vue.prototype.$isServer && on(document, 'mouseup', e => {
-//   nodeList.forEach(node => node[ctx].documentHandler(e, startClick));
-// });
+!Vue.prototype.$isServer && on(document, 'mouseup', e => {
+  nodeList.forEach(node => node[ctx].documentHandler(e, startClick));
+});
 
 function createDocumentHandler(el, binding, vnode) {
   return function(mouseup = {}, mousedown = {}) {
@@ -32,6 +32,16 @@ function createDocumentHandler(el, binding, vnode) {
       vnode.context[el[ctx].methodName]();
     } else {
       el[ctx].bindingFn && el[ctx].bindingFn();
+      // 停止冒泡
+      if(el[ctx].modifiers.stop){
+        mousedown.stopPropagation()
+        mouseup.stopPropagation()
+      }
+      // 阻止事件的默认行为
+      if(el[ctx].modifiers.prevent){
+        mousedown.preventDefault()
+        mouseup.preventDefault()
+      }
     }
   };
 }
@@ -52,7 +62,8 @@ export default {
       id,
       documentHandler: createDocumentHandler(el, binding, vnode),
       methodName: binding.expression,
-      bindingFn: binding.value
+      bindingFn: binding.value,
+      modifiers:binding.modifiers
     };
   },
 
@@ -60,6 +71,7 @@ export default {
     el[ctx].documentHandler = createDocumentHandler(el, binding, vnode);
     el[ctx].methodName = binding.expression;
     el[ctx].bindingFn = binding.value;
+    el[ctx].modifiers = binding.modifiers;
   },
 
   unbind(el) {
