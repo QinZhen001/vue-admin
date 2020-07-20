@@ -36,13 +36,13 @@ let boardRoutes = [
     children: [
       {
         path: "clickoutside",
-        name:"clickoutside",
+        name:"directive-clickoutside",
         component: () => import("@/views/directives/clickoutside"),
         meta: { title: "clickoutside" },
       },
       {
         path: "repeatclick",
-        name:"repeatclick",
+        name:"directive-repeatclick",
         component: () => import("@/views/directives/repeatclick"),
         meta: { title: "repeat-click" },
       },
@@ -57,12 +57,27 @@ let boardRoutes = [
     children:[
       {
         path:"marquee",
-        name:"marquee",
+        name:"component-marquee",
         component: () => import("@/views/marquee/index"),
         meta: { title: "跑马灯" },
       },
     ]
-  }
+  },
+  // 移动端手机
+  {
+    path:"/mobile",
+    component: Layout,
+    redirect: "/mobile/animation",
+    meta: { title: "移动端手机"},
+    children:[
+      {
+        path:"animation",
+        name:"mobile-animation",
+        component: () => import("@/views/mobile/index"),
+        meta: { title: "动画" },
+      },
+    ]
+  }, 
 ]
 
 
