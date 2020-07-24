@@ -39,7 +39,7 @@ const list = [
 ];
 
 export default {
-  name: "marquee",
+  name: "marquee1",
   components: {},
   props: {
     interval: {

@@ -1,16 +1,14 @@
 <!-- 跑马灯 -->
 <template>
   <div class="marquee" ref="marquee">
-    <div class="marquee-group" ref="marqueeGroup">
-      <transition-group name="marqueeGroup" tag="div">
-        <div
+      <ul class="marquee-group">
+        <li
           v-for="(item,index) in list"
           :key="index"
           v-show="item.show"
           class="marquee-item"
-        >{{item.text}}</div>
-      </transition-group>
-    </div>
+        >{{item.text}}</li>
+      </ul>
   </div>
 </template>
 
@@ -39,7 +37,7 @@ const list = [
 ];
 
 export default {
-  name: "marquee2",
+  name: "marquee3",
   components: {},
   props: {
     interval: {
@@ -66,7 +64,7 @@ export default {
   },
   mounted() {
     if (this.autoPlay) {
-      this.play();
+      // this.play();
     }
   },
   destroyed() {
@@ -107,15 +105,10 @@ export default {
   width: 344px;
   height: 30px;
   border-radius: 4px;
-  overflow-y: hidden;
-  font-family: "PingFangSC-Regular", "PingFang SC";
   background: rgba(246, 247, 249, 1);
   .marquee-group {
-    position: relative;
+    display: block;
     .marquee-item {
-      position: absolute;
-      top: 0;
-      left: 0;
       height: 30px;
       width: 100%;
       line-height: 30px;
@@ -129,20 +122,21 @@ export default {
   }
 }
 
-.marqueeGroup-enter-active,
-.marqueeGroup-leave-active {
-  transform: translateY(0);
-  transition: all 2s ease-out;
-  // transform-origin: center top;
-}
 
-.marqueeGroup-enter {
-  margin-top: 30px;
-  transform: translateY(100%);
-}
+// .marqueeGroup-enter-active,
+// .marqueeGroup-leave-active {
+//   transform: translateY(0);
+//   transition: all 2s ease-out;
+//   // transform-origin: center top;
+// }
 
-.marqueeGroup-leave-to {
-  margin-top: 0;
-  transform: translateY(-100%);
-}
+// .marqueeGroup-enter {
+//   margin-top: 30px;
+//   transform: translateY(100%);
+// }
+
+// .marqueeGroup-leave-to {
+//   margin-top: 0;
+//   transform: translateY(-100%);
+// }
 </style>
