@@ -1,11 +1,17 @@
 <!-- 移动端 -->
 <template>
- <div>移动端</div>
+ <div class="content-wrapper">
+   <mobile-iframe></mobile-iframe>
+ </div>
 </template>
 
 <script>
+import MobileIframe from "components/MobileIframe/index"
+
 export default {
- components: {},
+ components: {
+   MobileIframe
+ },
  props: {},
  data () {
   return {

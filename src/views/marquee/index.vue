@@ -11,8 +11,8 @@
 </template>
 
 <script>
-import Marquee from "@/components/Marquee/index";
-import Marquee2 from "@/components/Marquee/index2";
+import Marquee from "components/Marquee/index";
+import Marquee2 from "components/Marquee/index2";
 
 export default {
   components: {

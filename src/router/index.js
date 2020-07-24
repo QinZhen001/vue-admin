@@ -74,7 +74,22 @@ let boardRoutes = [
         path:"animation",
         name:"mobile-animation",
         component: () => import("@/views/mobile/index"),
-        meta: { title: "动画" },
+        meta: { title: "移动端动画" },
+      },
+    ]
+  }, 
+  // 格子
+  {
+    path:"/form",
+    component: Layout,
+    redirect: "/mobile/select-form",
+    meta: { title: "格子"},
+    children:[
+      {
+        path:"select-form",
+        name:"select-form",
+        component: () => import("@/views/form/index"),
+        meta: { title: "可选择的form" },
       },
     ]
   }, 
