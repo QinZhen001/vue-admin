@@ -12,7 +12,7 @@ export default {
     }catch(e){ 
       // TODO:捕获错误
     }
-    return value || defaultValue
+    return value || defaultValue 
   },
   removeItem(key){
     localStorage.removeItem(key)
