@@ -1,14 +1,9 @@
 <!-- 跑马灯 -->
 <template>
   <div class="marquee" ref="marquee">
-      <ul class="marquee-group">
-        <li
-          v-for="(item,index) in list"
-          :key="index"
-          v-show="item.show"
-          class="marquee-item"
-        >{{item.text}}</li>
-      </ul>
+    <ul class="marquee-group" ref="marqueeGroup">
+      <li v-for="(item,index) in list" :key="index" class="marquee-item">{{item.text}}</li>
+    </ul>
   </div>
 </template>
 
@@ -16,28 +11,19 @@
 const list = [
   {
     text: "6分钟前 涂善宝 成功签单正价课 111",
-    show: true,
+    // show: true,
   },
   {
     text: "6分钟前 涂善宝 成功签单正价课 222",
-    show: false,
+    // show: true,
   },
   {
     text: "6分钟前 涂善宝 成功签单正价课 333",
-    show: false,
-  },
-  {
-    text: "6分钟前 涂善宝 成功签单正价课 444",
-    show: false,
-  },
-  {
-    text: "6分钟前 涂善宝 成功签单正价课 555",
-    show: false,
+    // show: true,
   },
 ];
 
 export default {
-  name: "marquee3",
   components: {},
   props: {
     interval: {
@@ -48,23 +34,29 @@ export default {
       type: Boolean,
       default: true,
     },
-    // loop: {
-    //   type: Boolean,
-    //   default: true
-    // }
+    // 循环效果 (最后一项无缝切换到第一项)
+    loop: {
+      type: Boolean,
+      default: true,
+    },
   },
   data() {
     return {
       list: list,
-      children: [],
       marquee: null,
       index: 0,
       intervalId: null,
+      marginTop: 0,
     };
   },
   mounted() {
+    if (this.interval) {
+      const marqueeGroup = this.$refs.marqueeGroup;
+      const second = this.interval / 1000;
+      marqueeGroup.style.transition = `margin-top ${second}s`;
+    }
     if (this.autoPlay) {
-      // this.play();
+      this.intervalId = setInterval(this.play, this.interval);
     }
   },
   destroyed() {
@@ -72,29 +64,24 @@ export default {
   },
   methods: {
     play() {
-      if (this.intervalId) {
-        clearInterval(this.intervalId);
+      const marqueeGroup = this.$refs.marqueeGroup;
+      console.log(marqueeGroup);
+      if (this.index === this.list.length - 1) {
+        // 到达最后一项
+        this.marginTop = 0;
+        this.index = 0;
+      } else {
+        this.marginTop -= 30;
+        this.index += 1;
       }
-      this.intervalId = setInterval(
-        function () {
-          this.index = this.index >= this.list.length ? 0 : this.index + 1;
-          this.list = this.list.map((item, index) => {
-            let show = this.index === index;
-            return {
-              ...item,
-              show,
-            };
-          });
-        }.bind(this),
-        this.interval
-      );
+      marqueeGroup.style.marginTop = this.marginTop + "px";
     },
-    destroy() {
-      if (this.intervalId) {
-        clearTimeout(this.intervalId);
-        this.intervalId = null;
+    destroy(){
+      if(this.intervalId){
+        clearInterval(this.intervalId)
+        this.intervalId = null
       }
-    },
+    }
   },
 };
 </script>
@@ -102,41 +89,26 @@ export default {
 
 <style lang='scss' scoped>
 .marquee {
+  position: relative;
   width: 344px;
   height: 30px;
   border-radius: 4px;
-  background: rgba(246, 247, 249, 1);
+  overflow: hidden;
+  font-family: "PingFangSC-Regular", "PingFang SC";
   .marquee-group {
     display: block;
     .marquee-item {
+      display: block;
       height: 30px;
       width: 100%;
       line-height: 30px;
       box-sizing: border-box;
-      overflow: hidden;
       text-align: center;
       font-weight: 400;
       font-size: 14px;
       color: rgba(102, 102, 102, 1);
+      background: rgba(246, 247, 249, 1);
     }
   }
 }
-
-
-// .marqueeGroup-enter-active,
-// .marqueeGroup-leave-active {
-//   transform: translateY(0);
-//   transition: all 2s ease-out;
-//   // transform-origin: center top;
-// }
-
-// .marqueeGroup-enter {
-//   margin-top: 30px;
-//   transform: translateY(100%);
-// }
-
-// .marqueeGroup-leave-to {
-//   margin-top: 0;
-//   transform: translateY(-100%);
-// }
 </style>

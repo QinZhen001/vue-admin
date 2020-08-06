@@ -15,6 +15,7 @@
     </div>
     <div class="component-wrapper">
       <div class="content-header">使用element组件</div>
+      <p>关键属性： translateY 和 scale</p>
       <div class="marquee-warpper">
         <Marquee4></Marquee4>
       </div>

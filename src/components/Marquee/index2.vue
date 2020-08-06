@@ -39,7 +39,6 @@ const list = [
 ];
 
 export default {
-  name: "marquee2",
   components: {},
   props: {
     interval: {

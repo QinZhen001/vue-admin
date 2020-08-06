@@ -28,18 +28,9 @@ const list = [
     text: "6分钟前 涂善宝 成功签单正价课 333",
     show: false
   }
-  // {
-  //   text: "6分钟前 涂善宝 成功签单正价课 444",
-  //   show: false
-  // },
-  // {
-  //   text: "6分钟前 涂善宝 成功签单正价课 555",
-  //   show: false
-  // }
 ];
 
 export default {
-  name: "marquee1",
   components: {},
   props: {
     interval: {
