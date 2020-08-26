@@ -93,6 +93,20 @@ let boardRoutes = [
       },
     ]
   }, 
+  // 文字选择效果
+  {
+    path:"/text-select",
+    component: Layout,
+    meta: { title: "文字选择效果"},
+    children:[
+      {
+        path:"text-select",
+        name:"text-select",
+        component: () => import("@/views/text-select/index"),
+        meta: { title: "文字选择效果" },
+      },
+    ]
+  }, 
 ]
 
 
