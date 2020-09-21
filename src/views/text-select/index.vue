@@ -83,10 +83,10 @@ export default {
   mounted() {},
   methods: {
     enableNiteWriterPen() {
-      replaceSelectedStrByEle("aaa");
+      replaceSelectedStrByEle("custom-underline");
     },
     addUnderline() {
-      replaceSelectedStrByEle("cvccc");
+      replaceSelectedStrByEle("custom-underline");
     }
   }
 };

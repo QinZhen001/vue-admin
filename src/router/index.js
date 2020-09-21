@@ -161,6 +161,11 @@ export const constantRoutes = [
     component: () => import("@/views/401.vue"),
     hidden: true,
   },
+    // test 万能测试
+    {
+      path:"/test",
+      component:  () => import("@/views/test/index"),
+    }, 
 ];
 
 /**
