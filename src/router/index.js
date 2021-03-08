@@ -107,6 +107,19 @@ let boardRoutes = [
       },
     ]
   }, 
+  {
+    path:"/defer",
+    component: Layout,
+    meta: { title: "defer延期渲染"},
+    children:[
+      {
+        path:"defer",
+        name:"defer",
+        component: () => import("@/views/defer/index"),
+        meta: { title: "defer延期渲染" },
+      },
+    ]
+  },
 ]
 
 

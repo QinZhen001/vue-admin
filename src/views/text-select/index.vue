@@ -10,7 +10,8 @@
     <h3>《道德经》全文</h3>
     <p>
       01.道可道，非常道。
-      <i>哈哈哈哈哈</i>名可名，非常名。无名天地之始。有名万物之母。故常无欲以观其妙。常有欲以观
+      <i>哈哈哈哈哈</i
+      >名可名，非常名。无名天地之始。有名万物之母。故常无欲以观其妙。常有欲以观
       其徼。此两者同出而异名，同谓之玄。玄之又玄，众妙之门。
     </p>
 
@@ -21,7 +22,8 @@
     </p>
 
     <p>
-      03.不尚贤， 使民不争。不贵难得之货，使民不为盗。不见可欲，使民心不乱。是以圣人之治，虚其心，
+      03.不尚贤，
+      使民不争。不贵难得之货，使民不为盗。不见可欲，使民心不乱。是以圣人之治，虚其心，
       实其腹，弱其志，强其骨；常使民无知、无欲，使夫智者不敢为也。为无为，则无不治。
     </p>
 
@@ -47,7 +49,7 @@
 </template>
 
 <script>
-import Range from "./module/Range"
+import Range from "./module/Range";
 
 function replaceSelectedStrByEle(className) {
   const getRange = () => {
@@ -67,10 +69,11 @@ function replaceSelectedStrByEle(className) {
   };
 
   const range = getRange();
-  console.log(range)
   range.applyInlineStyle("i", {
-    class: className
+    class: className,
   });
+  console.log(1111, range);
+  debugger;
   range.select();
 }
 
@@ -83,34 +86,38 @@ export default {
   mounted() {},
   methods: {
     enableNiteWriterPen() {
-      replaceSelectedStrByEle("custom-underline");
+      replaceSelectedStrByEle("nite-writer-pen");
     },
     addUnderline() {
       replaceSelectedStrByEle("custom-underline");
-    }
-  }
+    },
+  },
 };
 </script>
-<style lang='scss' scoped>
-.content {
-  padding: 30px;
-  width: 700px;
-  line-height: 1.5em;
-}
 
-.btn-wrapper{
-  padding: 20px;
-}
 
-.custom-underline {
-  border-bottom: 1px solid #f00;
-  font-style: normal;
-}
+<style lang='scss'>
+.content-wrapper {
+  .content {
+    padding: 30px;
+    width: 700px;
+    line-height: 1.5em;
+  }
 
-.nite-writer-pen {
-  background-color: lightgreen;
-  border-radius: 5px;
-  box-shadow: 0 0 10px lightgreen;
-  font-style: normal;
+  .btn-wrapper {
+    padding: 20px;
+  }
+
+  .custom-underline {
+    border-bottom: 1px solid #f00;
+    font-style: normal;
+  }
+
+  .nite-writer-pen {
+    background-color: lightgreen;
+    border-radius: 5px;
+    box-shadow: 0 0 10px lightgreen;
+    font-style: normal;
+  }
 }
 </style>
