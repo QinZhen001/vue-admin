@@ -32,7 +32,7 @@
     "koa-static": "^5.0.0",
     "koa2-cors": "^2.0.6",
     "mongoose": "^5.9.1",
-    "node-sass": "^4.13.1",
+    "node-sass": "^7.0.0",
     "path-to-regexp": "^6.1.0",
     "vue": "^2.6.11",
     "vue-router": "^3.1.5",
